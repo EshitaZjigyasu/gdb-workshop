@@ -1,0 +1,24 @@
+# Compiled binaries
+demo1
+demo2
+assignment
+
+# Core dumps
+core
+core.*
+
+# macOS
+.DS_Store
+*.dSYM/
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Build artifacts
+*.o
+*.a
+*.so
