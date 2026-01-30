@@ -62,7 +62,9 @@ fi
 # Code sign GDB
 echo ""
 echo "Code signing GDB..."
-sudo codesign --entitlements - --force --sign gdb-cert "$GDB_PATH"
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+ENTITLEMENTS_FILE="$SCRIPT_DIR/gdb-entitlements.xml"
+sudo codesign --entitlements $ENTITLEMENTS_FILE --force --sign gdb-cert "$GDB_PATH"
 
 if [ $? -eq 0 ]; then
     echo "GDB has been code signed successfully!"

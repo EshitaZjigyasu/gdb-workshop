@@ -18,11 +18,14 @@ A hands-on workshop to learn GDB (GNU Debugger) through practical examples. This
 brew install gdb
 ```
 
-After installation, you may need to code-sign GDB to use it on macOS. Run:
+After installation, you **MUST** code-sign GDB to use it on macOS. Run:
 
 ```bash
 ./install-mac.sh
+./codesign-gdb.sh
 ```
+
+**Important:** The code signing step is required for GDB to run processes on macOS. Without it, you'll get "Don't know how to run" errors.
 
 #### Option 2: Using MacPorts
 
@@ -275,10 +278,19 @@ show args                 # Show current arguments
 
 ## Troubleshooting
 
-### macOS: "Unable to find Mach task port"
-If you see this error on macOS, you need to code-sign GDB. Run:
+### macOS: "Don't know how to run" or "Unable to find Mach task port"
+If you see these errors on macOS, you need to code-sign GDB. Run:
 ```bash
-./install-mac.sh
+./codesign-gdb.sh
+```
+
+This script will guide you through creating a code signing certificate and signing GDB. This is required due to macOS security restrictions.
+
+**Manual code signing (if script doesn't work):**
+```bash
+# First, create the certificate in Keychain Access (see codesign-gdb.sh for instructions)
+# Then run:
+sudo codesign --entitlements gdb-entitlements.xml --force --sign gdb-cert $(which gdb)
 ```
 
 ### Core dumps not generated
