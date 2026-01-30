@@ -14,16 +14,16 @@ double average_top_k(const vector<int>& a, int k) {
     vector<int> b = a;
     sort(b.begin(), b.end(), greater<int>());
     long long sum = 0;
-    for (int i = 0; i <= k; i++) {  // BUG1: <= causes OOB
+    for (int i = 0; i <= k; i++) { 
         sum += b[i];
     }
-    return (double)sum / k;  // BUG2: division by zero when k == 0
+    return (double)sum / k; 
 }
 
 void print_student_info(const vector<Student>& students, int idx) {
-    cout << "Student: " << students[idx].name << "\n";  // BUG3: unchecked idx
+    cout << "Student: " << students[idx].name << "\n";  
     cout << "Marks: ";
-    for (size_t i = 0; i <= students[idx].marks.size(); i++) {  // BUG4: <= causes OOB
+    for (size_t i = 0; i <= students[idx].marks.size(); i++) {  
         cout << students[idx].marks[i] << " ";
     }
     cout << "\n";
@@ -31,7 +31,7 @@ void print_student_info(const vector<Student>& students, int idx) {
 
 int calculate_total(const vector<int>& marks) {
     int total = 0;
-    for (int i = 0; i <= marks.size(); i++) {  // BUG5: <= causes OOB
+    for (int i = 0; i <= marks.size(); i++) {  
         total += marks[i];
     }
     return total;
@@ -47,14 +47,13 @@ int main(int argc, char** argv) {
     int idx = (argc >= 2) ? atoi(argv[1]) : 0;
     int k = (argc >= 3) ? atoi(argv[2]) : 3;
     
-    print_student_info(s, idx);  // BUG3: may access out of bounds
+    print_student_info(s, idx); 
     
     cout << "Avg top-k = " << average_top_k(s[idx].marks, k) << "\n";
     
-    // Additional bug: accessing non-existent student
     if (argc >= 4) {
         int idx2 = atoi(argv[3]);
-        cout << "Total marks: " << calculate_total(s[idx2].marks) << "\n";  // BUG6: unchecked idx2
+        cout << "Total marks: " << calculate_total(s[idx2].marks) << "\n";
     }
     
     return 0;
