@@ -44,7 +44,7 @@ void freeLinkedList(LinkedList * list) {
 
 void addIntToEndOfList(LinkedList* list, int value) {
     Node* p = new Node{value, nullptr};
-   list->tail->next = p;
+    list->tail->next = p;
     list->tail = p;
 }
 
@@ -71,6 +71,8 @@ int main(int argc, char* argv[]) {
 
     // print out the linked list
     cout << "AFTER: " << linkedListToString(list) << endl;
+
+    delete_node(list, 2);
 
     // free space on the heap
     freeLinkedList(list);
